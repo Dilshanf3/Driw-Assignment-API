@@ -24,29 +24,27 @@ public class ItemController {
     @Autowired
     IntItemService service;
 
+    //Return all the items that available in system
     @GetMapping
     public ResponseEntity<List<Item>> getAllItems() {
         List<Item> list = service.getAllItems();
         return new ResponseEntity<List<Item>>(list, new HttpHeaders(), HttpStatus.OK);
     }
-
+   //return specific item that matched with the id
     @GetMapping("/{id}")
     public ResponseEntity<Item> getItemById(@PathVariable("id") Long id) throws ResourceNotFoundException {
         Item entity = service.getItemById(id);
         return new ResponseEntity<Item>(entity, new HttpHeaders(), HttpStatus.OK);
     }
 
-
-   
-   
-    
+    //  Create / update item
     @PostMapping
     public ResponseEntity<Item> createOrUpdateItem(@RequestBody Item item) throws ResourceNotFoundException {
         Item updated = service.createOrUpdateItem(item);
         return new ResponseEntity<Item>(updated, new HttpHeaders(), HttpStatus.OK);
     }
 
-   
+   //Calculate price of a single item purchased
     @GetMapping("/calculate_price/single/{itemName}/{itemId}/{amount}")
     public ResponseEntity<PriceCalculationResponse> calculateSingleItemPrice(@PathVariable("itemName") String itemName,@PathVariable("itemId") Long itemId, @PathVariable("amount") Integer amount) throws ResourceNotFoundException {
         Item item = service.getItemById(itemId);
@@ -62,7 +60,7 @@ public class ItemController {
     }
 
    
-     
+     //Calculate price if many items are purchased
     @PostMapping("/calculate_price/all")
     public ResponseEntity<PriceCalculationResponse> calculateTotalPrice(@RequestBody ArrayList<PriceCalculation> itemsList) throws ResourceNotFoundException {
         List<TotalPrice> items = new ArrayList<TotalPrice>();
