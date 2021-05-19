@@ -1,3 +1,3 @@
 # Driw-Assignment-API
 
-To run the application create databse assestment using postgres
+To run the application create a databse called assestment using postgres
